@@ -18,10 +18,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Nuget.md" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="River.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
