@@ -1048,9 +1048,9 @@
         internal static string BenzopyreneCode { get; } = "w25043";
 
         /// <summary>
-        /// 苯并a芘名称
+        /// 苯并(a)芘名称
         /// </summary>
-        internal static string BenzopyreneName { get; } = "苯并a芘";
+        internal static string BenzopyreneName { get; } = "苯并(a)芘";
 
         /// <summary>
         /// 甲基汞编码
@@ -1073,14 +1073,14 @@
         internal static string PolychlorinatedBiphenylsName { get; } = "多氯联苯";
 
         /// <summary>
-        /// 微囊藻毒素LR编码
+        /// 微囊藻毒素-LR编码
         /// </summary>
         internal static string MicrocystinLrCode { get; } = "w99004";
 
         /// <summary>
-        /// 微囊藻毒素LR名称
+        /// 微囊藻毒素-LR名称
         /// </summary>
-        internal static string MicrocystinLrName { get; } = "微囊藻毒素LR";
+        internal static string MicrocystinLrName { get; } = "微囊藻毒素-LR";
 
         /// <summary>
         /// 黄磷编码
