@@ -14,13 +14,14 @@
     <PackageReadmeFile>Nuget.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/sm1lewc/SurfaceWater</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="Nuget.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <None Remove="Nuget.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="River.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
