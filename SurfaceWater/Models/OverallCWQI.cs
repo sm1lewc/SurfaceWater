@@ -1,4 +1,7 @@
-﻿namespace SurfaceWater.Models
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace SurfaceWater.Models
 {
 
     /// <summary>
@@ -142,7 +145,10 @@
             TphCwqi = tphCwqi;
             LasCwqi = lasCwqi;
             S2Cwqi = s2Cwqi;
-            CWQI = phCwqi + doCwqi + codmnCwqi + codCwqi + bod5Cwqi + nh3nCwqi + tpCwqi + cuCwqi + znCwqi + fCwqi + seCwqi + asCwqi + hgCwqi + cdCwqi + cr6Cwqi + pbCwqi + cnCwqi + vpCwqi + tphCwqi + lasCwqi + s2Cwqi;
+            List<decimal?> list =new List<decimal?>() { phCwqi, doCwqi, codmnCwqi, codCwqi, bod5Cwqi, nh3nCwqi, tpCwqi, cuCwqi, znCwqi, fCwqi, seCwqi, asCwqi, hgCwqi, cdCwqi, cr6Cwqi, pbCwqi, cnCwqi, vpCwqi, tphCwqi, lasCwqi, s2Cwqi };
+            var tmp = list.Where(x => x.HasValue);
+            if (tmp.Any()) CWQI = list.Where(x => x.HasValue).Sum();
+            else CWQI = null;
         }
     }
 }
