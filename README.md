@@ -1,3 +1,25 @@
+主要方法
+1. EnvironmentalQualityStandards
+   《地表水环境质量标准 GB 3838》
+   - 获取各个指标的名称 GetFactorName(), Get____Name()
+   - 获取各个指标的编码 GetPhCode()
+   - 获取指标的5个类别的标准限值 GetFactorStandardV2002(), Get____StandardV2002()
+   - 获取指标某个类别的标准限值 GetFactorStandardV2002(), Get____StandardV2002()
+   - 计算指标的类别 GetFactorGradeV2002(), Get____GradeV2002()
+   - 计算整条数据的水质类别 GetOverallWaterGradeV2002()
+2. StatisticalTechnicalRegulations
+   《地表水环境质量监测数据统计技术规定》《地表水自动监测数据处理方法及修约规则》
+   - 四舍六入五留双的修约方法 Round()
+   - PH的均值计算 GetPhAverage()
+   - 各个指标的小时数据修约位数 GetFactorHourDataDecimalPlaces(), Get____HourDataDecimalPlaces()
+   - 各个指标的评价数据修约位数 GetFactorAssessmentDataDecimalPlaces(), Get____AssessmentDataDecimalPlaces()
+   - 各个指标的小时数据修约 RoundFactorHourData(), Round____HourData()
+   - 各个指标的评价数据修约 RoundFactorAssessmentData(), Round____AssessmentData()
+3. CWQI
+   《城市地表水环境质量排名技术规定》《地表水环境质量标准 GB 3838》
+   - 计算各个指标的水质指数 GetFactorCwqiV2017v2002(), Get____CwqiV2017V2002()
+   - 计算一条数据的水质指数 GetOverallCwqiV2017V2002()
+
 
 |单词/简写|说明|编码|单词/简写|说明|编码|
 |:-------------:|:--------------:|:-----------------------:|:-------------:|:--------------:|:-----------------------:|
