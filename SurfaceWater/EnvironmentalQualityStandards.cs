@@ -1,6 +1,7 @@
 ﻿using SurfaceWater.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 
 namespace SurfaceWater
@@ -13,14 +14,21 @@ namespace SurfaceWater
     public class EnvironmentalQualityStandards
     {
         #region pH
+
         /// <summary>
         /// 计算pH的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetPhGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算劣Ⅴ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetPhGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            else if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(6);
+                else return null;
+            }
             else if (value >= 6 && value <= 9) return new WaterGrade(1);
             else return new WaterGrade(6);
         }
@@ -34,12 +42,14 @@ namespace SurfaceWater
         /// 获取ph的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetPhName() => FactorInfo.PhName;
 
         /// <summary>
         /// 获取ph的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetPhCode() => FactorInfo.PhCode;
         #endregion
 
@@ -48,10 +58,16 @@ namespace SurfaceWater
         /// 计算溶解氧的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetDoGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算劣Ⅴ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetDoGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(6);
+                else return null;
+            }
             if (value >= 7.5m) return new WaterGrade(1);
             if (value >= 6) return new WaterGrade(2);
             if (value >= 5) return new WaterGrade(3);
@@ -97,12 +113,14 @@ namespace SurfaceWater
         /// 获取溶解氧的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetDoName() => FactorInfo.DoName;
 
         /// <summary>
         /// 获取溶解氧的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetDoCode() => FactorInfo.DoCode;
         #endregion
 
@@ -111,10 +129,16 @@ namespace SurfaceWater
         /// 计算高锰酸盐指数的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetCodmnGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetCodmnGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 2) return new WaterGrade(1);
             if (value <= 4) return new WaterGrade(2);
             if (value <= 6) return new WaterGrade(3);
@@ -129,10 +153,10 @@ namespace SurfaceWater
         public static List<WaterStandard> GetCodmnStandardV2002() => new List<WaterStandard>()
         {
             new WaterStandard(){ Grade = 1, Standard = 2},
-        new WaterStandard(){ Grade = 2, Standard = 4},
-        new WaterStandard(){ Grade = 3, Standard = 6},
-        new WaterStandard(){ Grade = 4, Standard = 10},
-        new WaterStandard(){ Grade = 5, Standard = 15}
+            new WaterStandard(){ Grade = 2, Standard = 4},
+            new WaterStandard(){ Grade = 3, Standard = 6},
+            new WaterStandard(){ Grade = 4, Standard = 10},
+            new WaterStandard(){ Grade = 5, Standard = 15}
         };
 
         /// <summary>
@@ -155,12 +179,14 @@ namespace SurfaceWater
         /// 获取高锰酸盐指数的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCodmnName() => FactorInfo.CodmnName;
 
         /// <summary>
         /// 获取高锰酸盐指数的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCodmnCode() => FactorInfo.CodmnCode;
         #endregion
 
@@ -170,10 +196,16 @@ namespace SurfaceWater
         /// 计算化学需氧量的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetCodGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetCodGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 15) return new WaterGrade(1);
             if (value <= 20) return new WaterGrade(3);
             if (value <= 30) return new WaterGrade(4);
@@ -214,12 +246,14 @@ namespace SurfaceWater
         /// 获取化学需氧量的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCodName() => FactorInfo.CodName;
 
         /// <summary>
         /// 获取化学需氧量的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCodCode() => FactorInfo.CodCode;
 
         #endregion
@@ -230,10 +264,16 @@ namespace SurfaceWater
         /// 计算五日生化需氧量的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetBod5GradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetBod5GradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 3) return new WaterGrade(1);
             if (value <= 4) return new WaterGrade(3);
             if (value <= 6) return new WaterGrade(4);
@@ -274,12 +314,14 @@ namespace SurfaceWater
         /// 获取五日生化需氧量的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetBod5Name() => FactorInfo.Bod5Name;
 
         /// <summary>
         /// 获取五日生化需氧量的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetBod5Code() => FactorInfo.Bod5Code;
 
         #endregion
@@ -290,10 +332,16 @@ namespace SurfaceWater
         /// 计算氨氮的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetNh3nGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetNh3nGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.15m) return new WaterGrade(1);
             if (value <= 0.5m) return new WaterGrade(2);
             if (value <= 1) return new WaterGrade(3);
@@ -335,12 +383,14 @@ namespace SurfaceWater
         /// 获取氨氮的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetNh3nName() => FactorInfo.Nh3nName;
 
         /// <summary>
         /// 获取氨氮的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetNh3nCode() => FactorInfo.Nh3nCode;
 
         #endregion
@@ -352,10 +402,16 @@ namespace SurfaceWater
         /// </summary>
         /// <param name="value"></param>
         /// <param name="waterType">河流/湖库</param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetTpGradeV2002(decimal value, string waterType = "河流")
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetTpGradeV2002(decimal value, string waterType = "河流", bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (waterType == "河流")
             {
                 if (value <= 0.02m) return new WaterGrade(1);
@@ -438,12 +494,14 @@ namespace SurfaceWater
         /// 获取总磷的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetTpName() => FactorInfo.TpName;
 
         /// <summary>
         /// 获取总磷的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetTpCode() => FactorInfo.TpCode;
 
         #endregion
@@ -454,10 +512,16 @@ namespace SurfaceWater
         /// 计算总氮的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetTnGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetTnGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.2m) return new WaterGrade(1);
             if (value <= 0.5m) return new WaterGrade(2);
             if (value <= 1) return new WaterGrade(3);
@@ -499,12 +563,14 @@ namespace SurfaceWater
         /// 获取总氮的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetTnName() => FactorInfo.TnName;
 
         /// <summary>
         /// 获取总氮的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetTnCode() => FactorInfo.TnCode;
 
         #endregion
@@ -515,10 +581,16 @@ namespace SurfaceWater
         /// 计算铜的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetCuGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetCuGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.01m) return new WaterGrade(1);
             if (value <= 1) return new WaterGrade(2);
             return new WaterGrade(6);
@@ -557,12 +629,14 @@ namespace SurfaceWater
         /// 获取铜的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCuName() => FactorInfo.CuName;
 
         /// <summary>
         /// 获取铜的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCuCode() => FactorInfo.CuCode;
 
         #endregion
@@ -573,10 +647,16 @@ namespace SurfaceWater
         /// 计算锌的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetZnGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetZnGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.05m) return new WaterGrade(1);
             if (value <= 1) return new WaterGrade(2);
             if (value <= 2) return new WaterGrade(4);
@@ -616,12 +696,14 @@ namespace SurfaceWater
         /// 获取锌的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetZnName() => FactorInfo.ZnName;
 
         /// <summary>
         /// 获取锌的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetZnCode() => FactorInfo.ZnCode;
 
         #endregion
@@ -632,10 +714,16 @@ namespace SurfaceWater
         /// 计算氟化物的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetFGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetFGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 1) return new WaterGrade(1);
             if (value <= 1.5m) return new WaterGrade(4);
             return new WaterGrade(6);
@@ -674,12 +762,14 @@ namespace SurfaceWater
         /// 获取氟化物的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetFName() => FactorInfo.FName;
 
         /// <summary>
         /// 获取氟化物的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetFCode() => FactorInfo.FCode;
 
         #endregion
@@ -690,10 +780,16 @@ namespace SurfaceWater
         /// 计算硒的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetSeGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetSeGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.01m) return new WaterGrade(1);
             if (value <= 0.02m) return new WaterGrade(4);
             return new WaterGrade(6);
@@ -732,12 +828,14 @@ namespace SurfaceWater
         /// 获取硒的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetSeName() => FactorInfo.SeName;
 
         /// <summary>
         /// 获取硒的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetSeCode() => FactorInfo.SeCode;
 
         #endregion
@@ -748,10 +846,16 @@ namespace SurfaceWater
         /// 计算砷的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetAsGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetAsGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.05m) return new WaterGrade(1);
             if (value <= 0.1m) return new WaterGrade(4);
             return new WaterGrade(6);
@@ -790,12 +894,14 @@ namespace SurfaceWater
         /// 获取砷的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetAsName() => FactorInfo.AsName;
 
         /// <summary>
         /// 获取砷的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetAsCode() => FactorInfo.AsCode;
 
         #endregion
@@ -806,10 +912,16 @@ namespace SurfaceWater
         /// 计算汞的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetHgGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetHgGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.00005m) return new WaterGrade(1);
             if (value <= 0.0001m) return new WaterGrade(3);
             if (value <= 0.001m) return new WaterGrade(4);
@@ -849,12 +961,14 @@ namespace SurfaceWater
         /// 获取汞的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetHgName() => FactorInfo.HgName;
 
         /// <summary>
         /// 获取汞的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetHgCode() => FactorInfo.HgCode;
 
         #endregion
@@ -865,10 +979,16 @@ namespace SurfaceWater
         /// 计算镉的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetCdGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetCdGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.001m) return new WaterGrade(1);
             if (value <= 0.005m) return new WaterGrade(2);
             if (value <= 0.01m) return new WaterGrade(5);
@@ -908,12 +1028,14 @@ namespace SurfaceWater
         /// 获取镉的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCdName() => FactorInfo.CdName;
 
         /// <summary>
         /// 获取镉的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCdCode() => FactorInfo.CdCode;
 
         #endregion
@@ -924,10 +1046,16 @@ namespace SurfaceWater
         /// 计算六价铬的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetCr6GradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetCr6GradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.01m) return new WaterGrade(1);
             if (value <= 0.05m) return new WaterGrade(2);
             if (value <= 0.1m) return new WaterGrade(5);
@@ -967,12 +1095,14 @@ namespace SurfaceWater
         /// 获取六价铬的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCr6Name() => FactorInfo.Cr6Name;
 
         /// <summary>
         /// 获取六价铬的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCr6Code() => FactorInfo.Cr6Code;
 
         #endregion
@@ -983,10 +1113,16 @@ namespace SurfaceWater
         /// 计算铅的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetPbGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetPbGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.01m) return new WaterGrade(1);
             if (value <= 0.05m) return new WaterGrade(3);
             if (value <= 0.1m) return new WaterGrade(5);
@@ -1025,12 +1161,14 @@ namespace SurfaceWater
         /// 获取铅的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetPbName() => FactorInfo.PbName;
 
         /// <summary>
         /// 获取铅的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetPbCode() => FactorInfo.PbCode;
 
         #endregion
@@ -1041,10 +1179,16 @@ namespace SurfaceWater
         /// 计算氰化物的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetCnGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetCnGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.005m) return new WaterGrade(1);
             if (value <= 0.05m) return new WaterGrade(2);
             if (value <= 0.2m) return new WaterGrade(3);
@@ -1084,12 +1228,14 @@ namespace SurfaceWater
         /// 获取氰化物的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCnName() => FactorInfo.CnName;
 
         /// <summary>
         /// 获取氰化物的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetCnCode() => FactorInfo.CnCode;
 
         #endregion
@@ -1100,10 +1246,16 @@ namespace SurfaceWater
         /// 计算挥发酚的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetVpGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetVpGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.002m) return new WaterGrade(1);
             if (value <= 0.005m) return new WaterGrade(3);
             if (value <= 0.01m) return new WaterGrade(4);
@@ -1144,12 +1296,14 @@ namespace SurfaceWater
         /// 获取挥发酚的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetVpName() => FactorInfo.VpName;
 
         /// <summary>
         /// 获取挥发酚的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetVpCode() => FactorInfo.VpCode;
 
         #endregion
@@ -1160,10 +1314,16 @@ namespace SurfaceWater
         /// 计算石油类的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetTphGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetTphGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.05m) return new WaterGrade(1);
             if (value <= 0.5m) return new WaterGrade(4);
             if (value <= 1) return new WaterGrade(5);
@@ -1203,12 +1363,14 @@ namespace SurfaceWater
         /// 获取石油类的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetTphName() => FactorInfo.TphName;
 
         /// <summary>
         /// 获取石油类的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetTphCode() => FactorInfo.TphCode;
         #endregion
 
@@ -1218,10 +1380,16 @@ namespace SurfaceWater
         /// 计算阴离子表面活性剂的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetLasGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetLasGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.2m) return new WaterGrade(1);
             if (value <= 0.3m) return new WaterGrade(4);
             return new WaterGrade(6);
@@ -1260,12 +1428,14 @@ namespace SurfaceWater
         /// 获取阴离子表面活性剂的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetLasName() => FactorInfo.LasName;
 
         /// <summary>
         /// 获取阴离子表面活性剂的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetLasCode() => FactorInfo.LasCode;
 
         #endregion
@@ -1276,10 +1446,16 @@ namespace SurfaceWater
         /// 计算硫化物的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetS2GradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetS2GradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 0.05m) return new WaterGrade(1);
             if (value <= 0.1m) return new WaterGrade(2);
             if (value <= 0.2m) return new WaterGrade(3);
@@ -1321,12 +1497,14 @@ namespace SurfaceWater
         /// 获取硫化物的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetS2Name() => FactorInfo.S2Name;
 
         /// <summary>
         /// 获取硫化物的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetS2Code() => FactorInfo.S2Code;
 
         #endregion
@@ -1337,10 +1515,16 @@ namespace SurfaceWater
         /// 计算粪大肠菌群的类别
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>小于等于0时返回null</returns>
-        public static WaterGrade? GetFcGradeV2002(decimal value)
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
+        /// <returns></returns>
+        public static WaterGrade? GetFcGradeV2002(decimal value, bool zeroType = false)
         {
-            if (value <= 0) return null;
+            if (value < 0) return null;
+            if (value == 0)
+            {
+                if (zeroType) return new WaterGrade(1);
+                else return null;
+            }
             if (value <= 200) return new WaterGrade(1);
             if (value <= 2000) return new WaterGrade(2);
             if (value <= 10000) return new WaterGrade(3);
@@ -1382,12 +1566,14 @@ namespace SurfaceWater
         /// 获取粪大肠菌群的名称
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetFcName() => FactorInfo.FcName;
 
         /// <summary>
         /// 获取粪大肠菌群的代码
         /// </summary>
         /// <returns></returns>
+        [Obsolete("已过时,请直接使用Models.FactorInfo获取")]
         public static string GetFcCode() => FactorInfo.FcCode;
 
         #endregion
@@ -1395,8 +1581,6 @@ namespace SurfaceWater
         //TODO：表2、表3指标的名称和编码
 
         #region 3838-2002 表2
-
-
 
         /// <summary>
         /// 硫酸盐的标准限值
@@ -1548,6 +1732,7 @@ namespace SurfaceWater
         /// <param name="waterType">河流/湖库</param>
         /// <param name="isAnalysisTN">总氮是否参与计算,默认false不参与</param>
         /// <param name="isAnalysisFC">粪大肠菌群是否参与计算,默认false不参与</param>
+        /// <param name="zeroType">true:0算Ⅰ类; false:0算无数据返回null</param>
         /// <returns></returns>
         public static OverallWaterGrade GetOverallWaterGradeV2002(decimal ph,
                                                       decimal doValue,
@@ -1574,32 +1759,33 @@ namespace SurfaceWater
                                                       decimal? fc = null,
                                                       string waterType = "河流",
                                                       bool isAnalysisTN = false,
-                                                      bool isAnalysisFC = false)
+                                                      bool isAnalysisFC = false,
+                                                      bool zeroType = false)
 
         {
-            var phGrade = GetPhGradeV2002(ph);
-            var doGrade = GetDoGradeV2002(doValue);
-            var codmnGrade = GetCodmnGradeV2002(codmn);
-            var codGrade = GetCodGradeV2002(cod);
-            var bod5Grade = GetBod5GradeV2002(bod5);
-            var nh3nGrade = GetNh3nGradeV2002(nh3n);
-            var tpGrade = GetTpGradeV2002(tp, waterType);
-            var cuGrade = GetCuGradeV2002(cu);
-            var znGrade = GetZnGradeV2002(zn);
-            var fGrade = GetFGradeV2002(f);
-            var seGrade = GetSeGradeV2002(se);
-            var asGrade = GetAsGradeV2002(asValue);
-            var hgGrade = GetHgGradeV2002(hg);
-            var cdGrade = GetCdGradeV2002(cd);
-            var cr6Grade = GetCr6GradeV2002(cr6);
-            var pbGrade = GetPbGradeV2002(pb);
-            var cnGrade = GetCnGradeV2002(cn);
-            var vpGrade = GetVpGradeV2002(vp);
-            var tphGrade = GetTphGradeV2002(tph);
-            var lasGrade = GetLasGradeV2002(las);
-            var s2Grade = GetS2GradeV2002(s2);
-            var tnGrade = tn != null ? GetTnGradeV2002((decimal)tn) : null;
-            var fcGrade = fc != null ? GetFcGradeV2002((decimal)fc) : null;
+            var phGrade = GetPhGradeV2002(ph, zeroType);
+            var doGrade = GetDoGradeV2002(doValue, zeroType);
+            var codmnGrade = GetCodmnGradeV2002(codmn, zeroType);
+            var codGrade = GetCodGradeV2002(cod, zeroType);
+            var bod5Grade = GetBod5GradeV2002(bod5, zeroType);
+            var nh3nGrade = GetNh3nGradeV2002(nh3n, zeroType);
+            var tpGrade = GetTpGradeV2002(tp, waterType, zeroType);
+            var cuGrade = GetCuGradeV2002(cu, zeroType);
+            var znGrade = GetZnGradeV2002(zn, zeroType);
+            var fGrade = GetFGradeV2002(f, zeroType);
+            var seGrade = GetSeGradeV2002(se, zeroType);
+            var asGrade = GetAsGradeV2002(asValue, zeroType);
+            var hgGrade = GetHgGradeV2002(hg, zeroType);
+            var cdGrade = GetCdGradeV2002(cd, zeroType);
+            var cr6Grade = GetCr6GradeV2002(cr6, zeroType);
+            var pbGrade = GetPbGradeV2002(pb, zeroType);
+            var cnGrade = GetCnGradeV2002(cn, zeroType);
+            var vpGrade = GetVpGradeV2002(vp, zeroType);
+            var tphGrade = GetTphGradeV2002(tph, zeroType);
+            var lasGrade = GetLasGradeV2002(las, zeroType);
+            var s2Grade = GetS2GradeV2002(s2, zeroType);
+            var tnGrade = tn != null ? GetTnGradeV2002((decimal)tn, zeroType) : null;
+            var fcGrade = fc != null ? GetFcGradeV2002((decimal)fc, zeroType) : null;
 
             List<int?> grades = new List<int?>
             {
@@ -1806,6 +1992,7 @@ namespace SurfaceWater
         public static decimal GetFactorStandardV2002(string factorCode, int grade, string waterType = "河流")
         {
             if (string.IsNullOrWhiteSpace(factorCode)) throw new ArgumentNullException(nameof(factorCode));
+            factorCode = factorCode.ToLower();
             if (factorCode == FactorInfo.PhCode) throw new ArgumentException("pH不在此功能");
             if (factorCode == FactorInfo.DoCode) return GetDoStandardV2002(grade);
             if (factorCode == FactorInfo.CodmnCode) return GetCodmnStandardV2002(grade);
@@ -1868,29 +2055,30 @@ namespace SurfaceWater
         public static string GetFactorName(string factorCode)
         {
             if (string.IsNullOrWhiteSpace(factorCode)) throw new ArgumentNullException(nameof(factorCode));
-            if (factorCode == FactorInfo.PhCode) return GetPhName();
-            if (factorCode == FactorInfo.DoCode) return GetDoName();
-            if (factorCode == FactorInfo.CodmnCode) return GetCodmnName();
-            if (factorCode == FactorInfo.CodCode) return GetCodName();
-            if (factorCode == FactorInfo.Bod5Code) return GetBod5Name();
-            if (factorCode == FactorInfo.Nh3nCode) return GetNh3nName();
-            if (factorCode == FactorInfo.TpCode) return GetTpName();
-            if (factorCode == FactorInfo.TnCode) return GetTnName();
-            if (factorCode == FactorInfo.CuCode) return GetCuName();
-            if (factorCode == FactorInfo.ZnCode) return GetZnName();
-            if (factorCode == FactorInfo.FCode) return GetFName();
-            if (factorCode == FactorInfo.SeCode) return GetSeName();
-            if (factorCode == FactorInfo.AsCode) return GetAsName();
-            if (factorCode == FactorInfo.HgCode) return GetHgName();
-            if (factorCode == FactorInfo.CdCode) return GetCdName();
-            if (factorCode == FactorInfo.Cr6Code) return GetCr6Name();
-            if (factorCode == FactorInfo.PbCode) return GetPbName();
-            if (factorCode == FactorInfo.CnCode) return GetCnName();
-            if (factorCode == FactorInfo.VpCode) return GetVpName();
-            if (factorCode == FactorInfo.TphCode) return GetTphName();
-            if (factorCode == FactorInfo.LasCode) return GetLasName();
-            if (factorCode == FactorInfo.S2Code) return GetS2Name();
-            if (factorCode == FactorInfo.FcCode) return GetFcName();
+            factorCode = factorCode.ToLower();
+            if (factorCode == FactorInfo.PhclCode) return FactorInfo.PhName;
+            if (factorCode == FactorInfo.DoCode) return FactorInfo.DoName;
+            if (factorCode == FactorInfo.CodmnCode) return FactorInfo.CodmnName;
+            if (factorCode == FactorInfo.CodCode) return FactorInfo.CodName;
+            if (factorCode == FactorInfo.Bod5Code) return FactorInfo.Bod5Name;
+            if (factorCode == FactorInfo.Nh3nCode) return FactorInfo.Nh3nName;
+            if (factorCode == FactorInfo.TpCode) return FactorInfo.TpName;
+            if (factorCode == FactorInfo.TnCode) return FactorInfo.TnName;
+            if (factorCode == FactorInfo.CuCode) return FactorInfo.CuName;
+            if (factorCode == FactorInfo.ZnCode) return FactorInfo.ZnName;
+            if (factorCode == FactorInfo.FCode) return FactorInfo.FName;
+            if (factorCode == FactorInfo.SeCode) return FactorInfo.SeName;
+            if (factorCode == FactorInfo.AsCode) return FactorInfo.AsName;
+            if (factorCode == FactorInfo.HgCode) return FactorInfo.HgName;
+            if (factorCode == FactorInfo.CdCode) return FactorInfo.CdName;
+            if (factorCode == FactorInfo.Cr6Code) return FactorInfo.Cr6Name;
+            if (factorCode == FactorInfo.PbCode) return FactorInfo.PhName;
+            if (factorCode == FactorInfo.CnCode) return FactorInfo.CnName;
+            if (factorCode == FactorInfo.VpCode) return FactorInfo.VpName;
+            if (factorCode == FactorInfo.TphCode) return FactorInfo.TphName;
+            if (factorCode == FactorInfo.LasCode) return FactorInfo.LasName;
+            if (factorCode == FactorInfo.S2Code) return FactorInfo.S2Name;
+            if (factorCode == FactorInfo.FcCode) return FactorInfo.FcName;
             //TODO: 表2、表3指标的名称
             throw new ArgumentException("非GB 3838 指标");
             //return factorCode.ToLower() switch
