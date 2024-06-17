@@ -602,6 +602,16 @@
         public static string TolueneName { get; } = "甲苯";
 
         /// <summary>
+        /// 乙苯编码
+        /// </summary>
+        public static string EthylbenzeneCode { get; } = "w25004";
+
+        /// <summary>
+        /// 乙苯名称
+        /// </summary>
+        public static string EthylbenzeneName { get; } = "乙苯";
+
+        /// <summary>
         /// 二甲苯编码
         /// </summary>
         public static string XyleneCode { get; } = "w25005";
