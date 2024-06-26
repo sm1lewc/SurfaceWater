@@ -1,3 +1,5 @@
+[Nuget](https://www.nuget.org/packages/SurfaceWater)
+
 主要方法
 1. EnvironmentalQualityStandards
    《地表水环境质量标准 GB 3838》
