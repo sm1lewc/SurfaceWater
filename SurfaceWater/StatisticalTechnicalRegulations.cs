@@ -402,7 +402,7 @@ namespace SurfaceWater
         /// 获取钒小时数据的小数位数
         /// </summary>
         /// <returns></returns>
-        public static int GetAlHourDataDecimalPlaces() => 5;
+        public static int GetAlumHourDataDecimalPlaces() => 5;
 
         /// <summary>
         /// 获取镍小时数据的小数位数
@@ -502,7 +502,7 @@ namespace SurfaceWater
             if (factorCode == FactorInfo.SbCode) return GetSbHourDataDecimalPlaces();
             if (factorCode == FactorInfo.NiCode) return GetNiHourDataDecimalPlaces();
             if (factorCode == FactorInfo.BaCode) return GetBaHourDataDecimalPlaces();
-            if (factorCode == FactorInfo.AlCode) return GetAlHourDataDecimalPlaces();
+            if (factorCode == FactorInfo.AlumCode) return GetAlumHourDataDecimalPlaces();
             if (factorCode == FactorInfo.TiCode) return GetTiHourDataDecimalPlaces();
             if (factorCode == FactorInfo.TlCode) return GetTlHourDataDecimalPlaces();
             if (factorCode == FactorInfo.TcCode) return GetTcHourDataDecimalPlaces();
@@ -1030,7 +1030,7 @@ namespace SurfaceWater
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static decimal RoundAlHourData(decimal value) => Round(value, GetAlHourDataDecimalPlaces());
+        public static decimal RoundAlumHourData(decimal value) => Round(value, GetAlumHourDataDecimalPlaces());
 
         /// <summary>
         /// 钛小时数据修约
@@ -1162,7 +1162,7 @@ namespace SurfaceWater
             if (factorCode == FactorInfo.SbCode) return RoundSbHourData(value);
             if (factorCode == FactorInfo.NiCode) return RoundNiHourData(value);
             if (factorCode == FactorInfo.BaCode) return RoundBaHourData(value);
-            if (factorCode == FactorInfo.AlCode) return RoundAlHourData(value);
+            if (factorCode == FactorInfo.AlumCode) return RoundAlumHourData(value);
             if (factorCode == FactorInfo.TiCode) return RoundTiHourData(value);
             if (factorCode == FactorInfo.TlCode) return RoundTlHourData(value);
             if (factorCode == FactorInfo.TcCode) return RoundTcHourData(value);

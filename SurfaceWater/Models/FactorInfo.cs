@@ -350,11 +350,11 @@
         /// <summary>
         /// 矾编码
         /// </summary>
-        public static string AlCode { get; } = "w20101";
+        public static string AlumCode { get; } = "w20101";
         /// <summary>
         /// 矾名称
         /// </summary>
-        public static string AlName { get; } = "矾";
+        public static string AlumName { get; } = "矾";
 
         /// <summary>
         /// 钛编码
